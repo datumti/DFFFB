@@ -16,3 +16,7 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+Artisan::command('about', function () {
+    echo "O DFFFB (Datum Framework For Frontend Beginners) é o framework criado pela Datum TI \n para acelerar a fase inicial do desenvolvimento dos projetos internos.";
+})->describe('Display about section');
