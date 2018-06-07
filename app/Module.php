@@ -4,10 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Module extends Model
+class Module
 {
-    protected $name = '';
-    protected $attributes = array();
+    public $name;
+    public $attributes = array();
+
+    public function __construct($name, $attributes)
+    {
+        $this->name = $name;
+        $this->attributes = $attributes;
+    }
 
     /**
      * @return string

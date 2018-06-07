@@ -20,7 +20,7 @@ class GenerateView extends Command
      *
      * @var string
      */
-    protected $description = 'Creates a new specified view.';
+    protected $description = 'Cria uma nova view especificada.';
 
     /**
      * Create a new command instance.

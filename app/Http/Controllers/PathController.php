@@ -37,4 +37,11 @@ class PathController extends Controller
         fclose($fp);
     }
 
+    public function createEmptyFolder($path, $name)
+    {
+        if (!file_exists($path.'/'.$name)) {
+            mkdir($path.'/'.$name);
+        }
+    }
+
 }

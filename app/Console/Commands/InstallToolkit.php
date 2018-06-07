@@ -46,15 +46,12 @@ class InstallToolkit extends Command
         switch ($prj->toolkit) {
             case "bootstrap":
                 echo "You choose bootstrap!";
-                exec('cd '. $pc->getPath());
-                exec('dir', $output, $return);
-
                 break;
             case "materialize":
                 echo "You choose materialize!";
                 break;
             default:
-                echo "Invalid Option. Try 'bootstrap' or 'materialize'.";
+                echo "Opção inválida. Tente 'bootstrap' ou 'materialize'.";
         }
     }
 }
