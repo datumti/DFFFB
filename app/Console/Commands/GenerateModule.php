@@ -13,14 +13,14 @@ class GenerateModule extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:model {name} {args*}';
+    protected $signature = 'generate:module {name} {args*}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Cria um novo arquivo de model.';
+    protected $description = 'Cria um novo arquivo de módulo.';
 
     /**
      * Create a new command instance.
