@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\PathController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ViewController;
 
 class GenerateView extends Command
 {
@@ -55,6 +56,8 @@ class GenerateView extends Command
 
         $pc = new PathController();
         $prjc = new ProjectController();
-        $prjc->getModel($pc->getPath());
+        $toolkit = $prjc->getModel($pc->getPath())->toolkit;
+        $vc = new ViewController();
+        $vc->generateViewInsert($toolkit, "funcionario");
     }
 }
