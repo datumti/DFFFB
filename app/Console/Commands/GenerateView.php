@@ -14,7 +14,7 @@ class GenerateView extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:view {view}';
+    protected $signature = 'generate:view {view} {component}';
 
     /**
      * The console command description.
@@ -40,24 +40,22 @@ class GenerateView extends Command
      */
     public function handle()
     {
-        /*
-        $view = $this->argument('view');
-        $pc = new PathController();
-        $path = $pc->getPath() . '/someview.blade.php';
-
-        $txt = "hello world";
-
-        $file = fopen($path, "w") or die("Unable to open file!");
-        fwrite($file, $txt);
-        fclose($file);
-
-        echo 'Files generated.';
-        */
-
         $pc = new PathController();
         $prjc = new ProjectController();
+        $framework = $prjc->getModel($pc->getPath())->framework;
         $toolkit = $prjc->getModel($pc->getPath())->toolkit;
         $vc = new ViewController();
-        $vc->generateViewInsert($toolkit, "funcionario");
+
+        $view = $this->argument('view');
+        $component = $this->argument('component');
+
+        switch ($view) {
+            case 'insert':
+                $vc->generateViewInsert($framework, $toolkit, $component);
+                break;            
+            default:
+                echo "ERROR: undefined view.";
+                break;
+        }        
     }
 }

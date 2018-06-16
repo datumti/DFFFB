@@ -51,7 +51,7 @@ class GenerateModule extends Command
         $isTypeValid = array();
         foreach($attr as $a) {
             switch ($a[1]) {
-                case 'string':
+                case 'text':
                     array_push($isTypeValid, true);
                     break;
                 case 'number':
@@ -61,6 +61,9 @@ class GenerateModule extends Command
                     array_push($isTypeValid, true);
                     break;
                 case 'list':
+                    array_push($isTypeValid, true);
+                    break;
+                case 'password':
                     array_push($isTypeValid, true);
                     break;
                 default:
@@ -86,7 +89,7 @@ class GenerateModule extends Command
             }
         }
         else {
-            echo "Tipo inválido detectado.\nPor favor utilize um dos seguintes tipos: string, number, bool, list";
+            echo "Tipo inválido detectado.\nPor favor utilize um dos seguintes tipos: text, number, bool, list, password";
         }
     }
 
