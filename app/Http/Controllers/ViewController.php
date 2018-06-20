@@ -35,19 +35,19 @@ class ViewController extends Controller
                 echo "ERROR: Undefined framework";
                 break;
         }
-        echo "Arquivos gerados com sucesso.";
+        echo "\nArquivos gerados.";
     }
 
     public function generateViewUpdate(){
-        
+        //TODO    
     }
 
     public function generateViewList(){
-        
+        //TODO  
     }
 
     public function generateViewDashboard(){
-        
+        //TODO
     }
 
     private function generateContentTs($component){
@@ -78,10 +78,10 @@ class ViewController extends Controller
     private function generateContentHtml($toolkit, $component){
         switch ($toolkit) {
             case 'bootstrap':
-                return $this->generateHtmlBootstrap($component);
+                return $this->generateInsertHtmlBootstrap($component);
                 break;
             case 'materialize':
-                return $this->generateHtmlMaterialize($component);
+                return $this->generateInsertHtmlMaterialize($component);
                 break;
             default:
                 echo "ERROR: Undefined toolkit";
@@ -89,23 +89,125 @@ class ViewController extends Controller
         }
     }
 
-    private function generateHtmlBootstrap($component){
+    private function generateInsertHtmlBootstrap($component){
         $mc = new ModuleController();
         $module = $mc->retrieveModule($component);
-        $attr = $module->getAttributes();
-        $content = "<form>";
-        foreach($attr as $attribute) {
-            $content = $content.'<div class="form-group">
-                                    <label for="formInput'.ucwords($attribute[0]).'">'.ucwords($attribute[0]).'</label>
-                                    <input type="'.$attribute[1].'" class="form-control" id="formInput'.ucwords($attribute[0]).'">
-                                </div>';
+
+        if($module != null) {
+            $attr = $module->getAttributes();
+            $content = "<form>";
+
+            $linha = 0; //controla as rows
+
+            foreach($attr as $attribute) {
+
+                if($linha % 2 == 0 || $linha == 0) {
+                    $content = $content.'<div class="row">';
+                }
+
+                if($attribute[1] == 'text' || $attribute[1] == 'email' || $attribute[1] == 'number' || $attribute[1] == 'password') {
+                    $content = $content.'<div class="col-md-6 col-12"><div class="form-group">
+                    <label for="formInput'.ucwords($attribute[0]).'">'.ucwords($attribute[0]).'</label>
+                    <input type="'.$attribute[1].'" class="form-control" id="formInput'.ucwords($attribute[0]).'" name="'.$attribute[0].'">
+                    </div></div>';
+                }
+                if($attribute[1] == 'list') {
+                    $content = $content.'<div class="col-md-6 col-12"><div class="form-group">
+                    <label for="formInput'.ucwords($attribute[0]).'">'.ucwords($attribute[0]).'</label>
+                    <select class="form-control" id="formInput'.ucwords($attribute[0]).'" name="'.$attribute[0].'">
+                    <option>Selecione...</option>
+                    </select>
+                    </div></div>';
+                }
+                if($attribute[1] == 'bool') {
+                    $content = $content.'<div class="col-md-6 col-12"><div class="form-group">
+                    <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="formInput'.ucwords($attribute[0]).'" name="'.$attribute[0].'">
+                    <label class="form-check-label" for="formInput'.ucwords($attribute[0]).'">
+                    '.ucwords($attribute[0]).'
+                    </label>
+                    </div>
+                    </div></div>';
+                }
+                
+                if($linha % 2 != 0) {
+                    $content = $content.'</div>';
+                }
+                
+                $linha++;
+            }
+
+            if($linha % 2 != 0) {
+                $content = $content.'</div>';
+            }
+
+            $content = $content."<br><input type='submit' value='REGISTRAR' class='btn btn-primary'>";
+            $content = $content."</form>";
+            return $content;
         }
-        $content = $content."</form>";
-        return $content;
+        else {
+            echo "ERRO: o modelo ".$component." não existe ou está mal formatado. Utilize o comando 'generate:model'.";
+            return null;
+        }        
     }
 
-    private function generateHtmlMaterialize($component){
-        $content = "";
-        return $content;
+    private function generateInsertHtmlMaterialize($component){
+        $mc = new ModuleController();
+        $module = $mc->retrieveModule($component);
+
+        if($module != null) {
+            $attr = $module->getAttributes();
+            $content = "<form>";
+
+            $linha = 0; //controla as rows
+
+            foreach($attr as $attribute) {
+
+                if($linha % 2 == 0 || $linha == 0) {
+                    $content = $content.'<div class="row">';
+                }
+
+                if($attribute[1] == 'text' || $attribute[1] == 'email' || $attribute[1] == 'number' || $attribute[1] == 'password') {
+                    $content = $content.'<div class="col m6 s12"><div class="input-field">
+                    <input id="formInput'.ucwords($attribute[0]).'" type="'.$attribute[1].'" class="validate" name="'.$attribute[0].'">
+                    <label for="formInput'.ucwords($attribute[0]).'">'.ucwords($attribute[0]).'</label>                    
+                    </div></div>';
+                }
+                if($attribute[1] == 'list') {
+                    $content = $content.'<div class="col m6 s12 input-field">
+                    <select name="'.$attribute[0].'">
+                    <option value="0" selected>Selecione...</option>
+                    </select>
+                    <label>'.ucwords($attribute[0]).'</label>
+                    </div>';
+                }
+                if($attribute[1] == 'bool') {
+                    $content = $content.'<div class="col m6 s12">
+                    <label>
+                    <input type="checkbox" class="filled-in" name="'.$attribute[0].'"/>
+                    <span>'.ucwords($attribute[0]).'</span>
+                    </label>
+                    </div>';
+                }                
+
+                if($linha % 2 != 0) {
+                    $content = $content.'</div>';
+                }
+                
+                $linha++;
+            }
+            
+            if($linha % 2 != 0) {
+                $content = $content.'</div>';
+            }
+
+            $content = $content."<br><a class='waves-effect waves-light btn'>REGISTRAR</a>";
+            $content = $content."</form>";
+            return $content;
+        }
+        else {
+            echo "ERRO: o modelo ".$component." não existe ou está mal formatado. Utilize o comando 'generate:model'.";
+            return null;
+        }
     }
 }

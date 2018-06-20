@@ -13,7 +13,7 @@ class GenerateModule extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:model {name} {args*}';
+    protected $signature = 'generate:module {name} {args*}';
 
     /**
      * The console command description.
@@ -64,6 +64,9 @@ class GenerateModule extends Command
                     array_push($isTypeValid, true);
                     break;
                 case 'password':
+                    array_push($isTypeValid, true);
+                    break;
+                case 'email':
                     array_push($isTypeValid, true);
                     break;
                 default:
