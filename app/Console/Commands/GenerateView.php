@@ -5,7 +5,8 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use App\Http\Controllers\PathController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ViewController;
+use App\Http\Controllers\ViewInsertController;
+use App\Http\Controllers\ViewSelectController;
 
 class GenerateView extends Command
 {
@@ -44,15 +45,19 @@ class GenerateView extends Command
         $prjc = new ProjectController();
         $framework = $prjc->getModel($pc->getPath())->framework;
         $toolkit = $prjc->getModel($pc->getPath())->toolkit;
-        $vc = new ViewController();
+        $vic = new ViewInsertController();
+        $vsc = new ViewSelectController();
 
         $view = $this->argument('view');
         $component = $this->argument('component');
 
         switch ($view) {
             case 'insert':
-                $vc->generateViewInsert($framework, $toolkit, $component);
-                break;            
+                $vic->generateView($framework, $toolkit, $component);
+                break;
+            case 'select':
+                $vsc->generateView($framework, $toolkit, $component);
+                break;
             default:
                 echo "ERROR: undefined view.";
                 break;

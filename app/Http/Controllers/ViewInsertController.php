@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\PathController;
-use App\Http\Controllers\ModuleController;
-use App\Module;
 
-class ViewController extends Controller
+class ViewInsertController extends Controller
 {
-    public function generateViewInsert($framework, $toolkit, $component){
+    public function generateView($framework, $toolkit, $component){
         $pc = new PathController();
         
         switch ($framework) {
@@ -36,18 +33,6 @@ class ViewController extends Controller
                 break;
         }
         echo "\nArquivos gerados.";
-    }
-
-    public function generateViewUpdate(){
-        //TODO    
-    }
-
-    public function generateViewList(){
-        //TODO  
-    }
-
-    public function generateViewDashboard(){
-        //TODO
     }
 
     private function generateContentTs($component){
