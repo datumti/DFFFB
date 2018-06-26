@@ -29,7 +29,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/anonymous node/sails user/dfffb-sails.git"
+    "url": "git://github.com/datumti/dfffb.git"
   },
   "author": "Datum TI/thalesludwig",
   "license": "",
