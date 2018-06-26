@@ -1,5 +1,6 @@
 # DFFFB
 Datum Framework For Frontend Begginers 
 
-##Iniciando
-$ sails lift
+### Iniciando
+- $ npm install
+- $ sails lift
