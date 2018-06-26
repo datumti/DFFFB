@@ -1,0 +1,51 @@
+<br>
+<form method="POST" action="/project/generate">
+    <div class="form-group">
+        <label for="inputFramework">Framework:</label>
+        <input type="text" class="form-control" id="inputFramewoek" value="Angular (CLI)" disabled>
+    </div>
+    <div class="form-group">
+        <label for="inputProject">Caminho do Projeto: <span style="color: red">*</span></label>
+        <input type="text" name="path" class="form-control" id="inputProject" required>
+    </div>
+    <div class="form-group">
+        <label for="selectToolkit">Toolkit Visual: <span style="color: red">*</span></label>
+        <select name="toolkit" class="form-control" id="selectToolkit">
+            <option value="bootstrap">Bootstrap</option>
+            <option value="materialize">Materialize-css</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="inputModel">Modelo: <span style="color: red">*</span></label>
+        <input type="text" name="model" class="form-control" id="inputModel" placeholder="Ex: funcionario, usuario, post." required>
+    </div>
+    <h5>Atributos:</h5>
+    
+    <div id="lines">
+        <div class="row">
+            <div class="col">
+                <label>Nome:</label>
+                <input type="text" class="form-control" name="attrName">
+            </div>
+            <div class="col">
+                <label>Tipo:</label>
+                <select class="form-control" name="attrType">
+                    <option value="text">Texto</option>
+                    <option value="number">Número</option>
+                    <option value="password">Senha</option>
+                    <option value="checkbox">Caixa de Seleção</option>
+                    <option value="textarea">Área de Texto</option>
+                </select>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <input style="position: relative; top: 31px" type="button" class="btn btn-success" id="btnAdd" onclick="addLine()" value="+">
+                </div>
+            </div>
+        </div>
+        <br>
+    </div>
+    
+    <br>
+    <button type="submit" class="btn btn-primary">GERAR</button>
+</form>
