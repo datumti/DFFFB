@@ -2,4 +2,5 @@
 Datum Framework For Frontend Begginers 
 
 ### Iniciando
-$ sails lift
+- $ npm install
+- $ sails lift
