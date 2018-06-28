@@ -9,19 +9,19 @@ var fs = require('fs');
 var uc = require('locutus/php/strings/ucwords');
 
 module.exports = {
-  
+
     generateContentTs: function(project) {
-        var content = 
+        var content =
         "import { Component, OnInit } from '@angular/core'; \n \n" +
         "@Component({\n" +
         "selector: 'app-" + project.model + "-list',\n" +
         "templateUrl: './" + project.model + "List.component.html',\n" +
         "styleUrls: ['./" + project.model + "List.component.css']\n" +
         "})\n" +
-        "export class " + uc(project.model) + "ListComponent implements OnInit {\n" +        
-            "constructor() { }\n" +        
+        "export class " + uc(project.model) + "ListComponent implements OnInit {\n" +
+            "constructor() { }\n" +
             "ngOnInit() {\n" +
-            "}\n" +        
+            "}\n" +
         "}";
         var filePath = project.path+"/src/app/"+project.model+"/"+project.model+"List/"+project.model+"List.component.ts";
         fs.writeFile(filePath, content, function(err) {
@@ -90,7 +90,18 @@ module.exports = {
         content = content + "</tbody>";
         content = content + "</table>";
 
-        var filePath = project.path+"/src/app/"+project.model+"/"+project.model+"List/"+project.model+"Form.component.html";
+        var filePath = project.path+"/src/app/"+project.model+"/"+project.model+"List/"+project.model+"List.component.html";
+        fs.writeFile(filePath, content, function(err) {
+            var success = err ? false : true;
+            return success;
+        });
+    },
+
+    generateHtmlNgMaterial: function(project) {
+        var arraysize = project.attrName.length;
+        content = "";
+
+        var filePath = project.path+"/src/app/"+project.model+"/"+project.model+"List/"+project.model+"List.component.html";
         fs.writeFile(filePath, content, function(err) {
             var success = err ? false : true;
             return success;

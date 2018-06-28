@@ -59,6 +59,19 @@ module.exports = {
                 selectController.generateContentCss(project);
                 res.send("Arquivos gerados.");
                 break;
+            case "ngmaterial":
+                //generating insert screen
+                insertController.createModelFolder(project);
+                insertController.generateHtmlNgMaterial(project);
+                insertController.generateContentTs(project);
+                insertController.generateContentCss(project);
+                //generating select screen
+                selectController.createModelFolder(project);
+                selectController.generateHtmlNgMaterial(project);
+                selectController.generateContentTs(project);
+                selectController.generateContentCss(project);
+                res.send("Arquivos gerados.");
+                break;
             default:
                 res.send("oops");
                 break;

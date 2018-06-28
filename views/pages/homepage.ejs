@@ -13,6 +13,7 @@
         <select name="toolkit" class="form-control" id="selectToolkit">
             <option value="bootstrap">Bootstrap</option>
             <option value="materialize">Materialize-css</option>
+            <option value="ngmaterial">Angular Material</option>
         </select>
     </div>
     <div class="form-group">
@@ -20,7 +21,7 @@
         <input type="text" name="model" class="form-control" id="inputModel" placeholder="Ex: funcionario, usuario, post." required>
     </div>
     <h5>Atributos:</h5>
-    
+
     <div id="lines">
         <div class="row">
             <div class="col">
@@ -33,8 +34,10 @@
                     <option value="text">Texto</option>
                     <option value="number">Número</option>
                     <option value="password">Senha</option>
+                    <option value="email">E-mail</option>
                     <option value="checkbox">Caixa de Seleção</option>
                     <option value="textarea">Área de Texto</option>
+                    <option value="select">Lista</option>
                 </select>
             </div>
             <div class="col">
@@ -45,7 +48,7 @@
         </div>
         <br>
     </div>
-    
+
     <br>
     <button type="submit" class="btn btn-primary">GERAR</button>
 </form>
