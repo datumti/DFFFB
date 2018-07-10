@@ -1,12 +1,35 @@
 <br>
-<form method="POST" action="/project/generate">
+
+<%if (typeof feedback != 'undefined') { %>
+
+    <%if (feedback.error == 0) { %>
+        <div class="alert alert-success" role="alert">
+            <%- feedback.msg %>
+        </div>
+    <% } %>
+    <%if (feedback.error == 1) { %>
+        <div class="alert alert-danger" role="alert">
+            <%- feedback.msg %>
+        </div>
+    <% } %>
+
+<% } %>
+
+<h4>Configurações:</h4>
+<br>
+<form method="POST" action="/api/project/generate">
     <div class="form-group">
         <label for="inputFramework">Framework:</label>
-        <input type="text" class="form-control" id="inputFramewoek" value="Angular (CLI)" disabled>
+        <input type="text" name="framework" class="form-control" id="inputFramework" value="Angular (CLI)" disabled>
     </div>
-    <div class="form-group">
-        <label for="inputProject">Caminho do Projeto: <span style="color: red">*</span></label>
-        <input type="text" name="path" class="form-control" id="inputProject" required>
+    <div class="form-group" id="project-path">
+        <label for="inputProject">Caminho local do Projeto: <span style="color: red">*</span></label>
+        <input type="text" name="path" @blur="onBlur" ref="path" class="form-control" id="inputProject" required>
+    </div>
+    <div id="path-validation">
+        <div class="alert" v-bind:class="alerttype" v-if="info" role="alert">
+            {{ info }}
+        </div>
     </div>
     <div class="form-group">
         <label for="selectToolkit">Toolkit Visual: <span style="color: red">*</span></label>
@@ -17,18 +40,23 @@
         </select>
     </div>
     <div class="form-group">
-        <label for="inputModel">Modelo: <span style="color: red">*</span></label>
+        <label for="inputModel">Nome do Modelo: <span style="color: red">*</span></label>
         <input type="text" name="model" class="form-control" id="inputModel" placeholder="Ex: funcionario, usuario, post." required>
     </div>
-    <h5>Atributos:</h5>
+    <br>
+    <h4>Atributos:</h4>
+    <br>
+    <div class="form-group" id="add-btn">
+        <input type="button" class="btn btn-success" @click="addLine" value="Adicionar">
+    </div>
 
-    <div id="lines">
-        <div class="row">
-            <div class="col">
-                <label>Nome:</label>
+    <div id="attr-list">
+        <div class="row mt-3" v-for="attr in attributes">
+            <div class="col-4">
+                <label>Atributo:</label>
                 <input type="text" class="form-control" name="attrName">
             </div>
-            <div class="col">
+            <div class="col-2">
                 <label>Tipo:</label>
                 <select class="form-control" name="attrType">
                     <option value="text">Texto</option>
@@ -40,15 +68,10 @@
                     <option value="select">Lista</option>
                 </select>
             </div>
-            <div class="col">
-                <div class="form-group">
-                    <input style="position: relative; top: 31px" type="button" class="btn btn-success" id="btnAdd" onclick="addLine()" value="+">
-                </div>
-            </div>
         </div>
-        <br>
     </div>
 
-    <br>
-    <button type="submit" class="btn btn-primary">GERAR</button>
+    <hr>
+    <button type="submit" class="btn btn-primary">Gerar Componente</button>
 </form>
+<br>

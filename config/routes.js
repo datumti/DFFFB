@@ -42,7 +42,8 @@ module.exports.routes = {
   //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
   //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
 
-  'post /project/generate' : { controller: 'ProjectController', action: 'generate' }
+  'post /api/project/generate' : { controller: 'ProjectController', action: 'generate' },
+  'post /api/project/validate' : { controller: 'ProjectController', action: 'isPathValid' },
 
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
