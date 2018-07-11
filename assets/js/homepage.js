@@ -69,3 +69,31 @@ var projectPath = new Vue({
         },
     }
 });
+
+var submitValidation = new Vue({
+    el: '#project-framework',
+    methods: {
+        onChange: function() {
+            const framework = this.$refs.framework.value;
+            if(framework == 'angular') {
+                btnSubmit.isDisabled = false; //only allow angular for now
+                btnSubmit.submitText = 'Gerar Componente';
+                btnSubmit.btntype = 'btn-primary';
+            }
+            else {
+                btnSubmit.isDisabled = true;
+                btnSubmit.submitText = 'Framework Indisponível';
+                btnSubmit.btntype = 'btn-danger';
+            }
+        }
+    }
+});
+
+var btnSubmit = new Vue({
+    el: '#btn-submit',
+    data: {
+        submitText : 'Gerar Componente',
+        isDisabled : false,
+        btntype : 'btn-primary'
+    },
+});

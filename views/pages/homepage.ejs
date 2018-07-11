@@ -18,9 +18,9 @@
 <h4>Configurações:</h4>
 <br>
 <form method="POST" action="/api/project/generate">
-    <div class="form-group">
+    <div class="form-group" id="project-framework">
         <label for="selectFramework">Framework: <span style="color: red">*</span></label>
-        <select name="framework" class="form-control" id="selectFramework" ref="framework">
+        <select name="framework" @change="onChange" class="form-control" id="selectFramework" ref="framework">
             <option value="angular">Angular (2+)</option>
             <option value="react">React</option>
             <option value="vue">Vue</option>
@@ -81,6 +81,6 @@
     </div>
 
     <hr>
-    <button type="submit" class="btn btn-primary">Gerar Componente</button>
+    <button id="btn-submit" :disabled="isDisabled" type="submit" class="btn" v-bind:class="btntype">{{ submitText }}</button>
 </form>
 <br>
