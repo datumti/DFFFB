@@ -91,7 +91,7 @@
         <br><br>
         <div class="card" id="card-view">
             <div class="card-body">
-                <ul v-if="model">
+                <ul v-if="model && framework == 'angular'">
                     <li>{{model}}</li>
                     <ul>
                         <li>{{model}}Form</li>
@@ -108,8 +108,11 @@
                         </ul>
                     </ul>
                 </ul>
-                <div v-if="!model">
+                <div v-if="!model && framework == 'angular'">
                     <p>Nenhum modelo definido.</p>
+                </div>
+                <div v-if="framework != 'angular'">
+                    <p style="color: red">Framework ainda não suportado.</p>
                 </div>
             </div>
         </div>

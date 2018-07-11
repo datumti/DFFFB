@@ -70,7 +70,7 @@ var projectPath = new Vue({
     }
 });
 
-var submitValidation = new Vue({
+var projectFramework = new Vue({
     el: '#project-framework',
     methods: {
         onChange: function() {
@@ -79,11 +79,13 @@ var submitValidation = new Vue({
                 btnSubmit.isDisabled = false; //only allow angular for now
                 btnSubmit.submitText = 'Gerar Componente';
                 btnSubmit.btntype = 'btn-primary';
+                cardView.framework = 'angular';
             }
             else {
                 btnSubmit.isDisabled = true;
                 btnSubmit.submitText = 'Framework Indisponível';
                 btnSubmit.btntype = 'btn-danger';
+                cardView.framework = '';
             }
         }
     }
@@ -111,6 +113,7 @@ var projectModel = new Vue({
 var cardView = new Vue({
     el: '#card-view',
     data: {
-        model : ''
+        model : '',
+        framework : 'angular'
     }
 });
