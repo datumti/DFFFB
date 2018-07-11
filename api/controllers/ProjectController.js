@@ -6,10 +6,10 @@
  */
 
 var fs = require('fs');
-var insertController = require('./InsertController');
-var selectController = require('./SelectController');
+var angularInsertController = require('./AngularInsertController');
+var angularSelectController = require('./AngularSelectController');
 
-module.exports = {
+var ProjectController = {
   
     generate: function(req, res) {
         var framework = req.param('framework');
@@ -28,57 +28,22 @@ module.exports = {
             attrType: attrType
         }
 
-        //creating model directory
-        var dir = project.path + '/src/app/' + project.model;
-        if (!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
-        }
-
-        switch (toolkit) {
-            case "bootstrap":
-                //generating insert screen
-                insertController.createModelFolder(project);
-                insertController.generateHtmlBootstrap(project);
-                insertController.generateContentTs(project);
-                insertController.generateContentCss(project);
-                //generating select screen
-                selectController.createModelFolder(project);
-                selectController.generateHtmlBootstrap(project);
-                selectController.generateContentTs(project);
-                selectController.generateContentCss(project);
-                return res.view('pages/homepage', { feedback: { msg: 'Componentes gerados com sucesso.', error: '0' } });
+        switch (framework) {
+            case "angular":
+                ProjectController.generateAngularFiles(project);
+                return res.view('pages/homepage', { feedback: { msg: 'Componentes Angular gerados com sucesso.', error: '0' } });
                 break;
-            case "materialize":
-                //generating insert screen
-                insertController.createModelFolder(project);
-                insertController.generateHtmlMaterialize(project);
-                insertController.generateContentTs(project);
-                insertController.generateContentCss(project);
-                //generating select screen
-                selectController.createModelFolder(project);
-                selectController.generateHtmlMaterialize(project);
-                selectController.generateContentTs(project);
-                selectController.generateContentCss(project);
-                return res.view('pages/homepage', { feedback: { msg: 'Componentes gerados com sucesso.', error: '0' } });
+            case "react":
+                ProjectController.generateReactFiles(project);
+                return res.view('pages/homepage', { feedback: { msg: 'Componentes React gerados com sucesso.', error: '0' } });
                 break;
-            case "ngmaterial":
-                //generating insert screen
-                insertController.createModelFolder(project);
-                insertController.generateHtmlNgMaterial(project);
-                insertController.generateContentTs(project);
-                insertController.generateContentCss(project);
-                //generating select screen
-                selectController.createModelFolder(project);
-                selectController.generateHtmlNgMaterial(project);
-                selectController.generateContentTs(project);
-                selectController.generateContentCss(project);
-                return res.view('pages/homepage', { feedback: { msg: 'Componentes gerados com sucesso.', error: '0' } });
+            case "vue":
+                ProjectController.generateVueFiles(project);
+                return res.view('pages/homepage', { feedback: { msg: 'Componentes Vue gerados com sucesso.', error: '0' } });
                 break;
             default:
-                return res.view('pages/homepage', { feedback: { msg: 'Ocorreu um erro ao gerar os arquivos.', error: '1' } });
                 break;
-        }
-        
+        }        
     },
 
     isPathValid : function(req, res) {
@@ -107,7 +72,66 @@ module.exports = {
                 break;
         }
         return res.send(isValid);
+    },
+
+    generateAngularFiles : function(project) {
+        //creating model directory
+        var dir = project.path + '/src/app/' + project.model;
+        if (!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+
+        switch (project.toolkit) {
+            case "bootstrap":
+                //generating insert screen
+                angularInsertController.createModelFolder(project);
+                angularInsertController.generateHtmlBootstrap(project);
+                angularInsertController.generateContentTsBootstrap(project);
+                angularInsertController.generateContentCss(project);
+                //generating select screen
+                angularSelectController.createModelFolder(project);
+                angularSelectController.generateHtmlBootstrap(project);
+                angularSelectController.generateContentTsBootstrap(project);
+                angularSelectController.generateContentCss(project);
+                break;
+            case "materialize":
+                //generating insert screen
+                angularInsertController.createModelFolder(project);
+                angularInsertController.generateHtmlMaterialize(project);
+                angularInsertController.generateContentTsMaterialize(project);
+                angularInsertController.generateContentCss(project);
+                //generating select screen
+                angularSelectController.createModelFolder(project);
+                angularSelectController.generateHtmlMaterialize(project);
+                angularSelectController.generateContentTsMaterialize(project);
+                angularSelectController.generateContentCss(project);
+                break;
+            case "ngmaterial":
+                //generating insert screen
+                angularInsertController.createModelFolder(project);
+                angularInsertController.generateHtmlNgMaterial(project);
+                angularInsertController.generateContentTsNgMaterial(project);
+                angularInsertController.generateContentCss(project);
+                //generating select screen
+                angularSelectController.createModelFolder(project);
+                angularSelectController.generateHtmlNgMaterial(project);
+                angularSelectController.generateContentTsNgMaterial(project);
+                angularSelectController.generateContentCss(project);
+                break;
+            default:
+                break;
+        }
+    },
+
+    generateReactFiles : function(project) {
+
+    },
+
+    generateVueFiles : function(project) {
+
     }
 
 };
+
+module.exports = ProjectController;
 

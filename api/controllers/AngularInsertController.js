@@ -1,5 +1,5 @@
 /**
- * InsertController
+ * AngularInsertController
  *
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
@@ -10,7 +10,51 @@ var uc = require('locutus/php/strings/ucwords');
 
 module.exports = {
 
-    generateContentTs: function (project) {
+    generateContentTsBootstrap: function (project) {
+        var content =
+            "import { Component, OnInit } from '@angular/core'; \n \n" +
+            "@Component({\n" +
+            "selector: 'app-" + project.model + "-form',\n" +
+            "templateUrl: './" + project.model + "Form.component.html',\n" +
+            "styleUrls: ['./" + project.model + "Form.component.css']\n" +
+            "})\n" +
+            "export class " + uc(project.model) + "FormComponent implements OnInit {\n" +
+            "constructor() { }\n" +
+            "ngOnInit() {\n" +
+            "}\n" +
+            "}";
+        var filePath = project.path + "/src/app/" + project.model + "/" + project.model + "Form/" + project.model + "Form.component.ts";
+        fs.writeFile(filePath, content, function (err) {
+            var success = err ? false : true;
+            return success;
+        });
+    },
+
+    generateContentTsMaterialize: function (project) {
+        var content =
+            "import { Component, OnInit } from '@angular/core'; \n \n" +
+            "@Component({\n" +
+            "selector: 'app-" + project.model + "-form',\n" +
+            "templateUrl: './" + project.model + "Form.component.html',\n" +
+            "styleUrls: ['./" + project.model + "Form.component.css']\n" +
+            "})\n" +
+            "export class " + uc(project.model) + "FormComponent implements OnInit {\n" +
+            "constructor() { }\n" +
+            "ngOnInit() {\n" +
+            "document.addEventListener('DOMContentLoaded', function() {\n" +
+            "const elems = document.querySelectorAll('select');\n" +
+            "const instances = M.FormSelect.init(elems);\n" +
+            "});\n" +
+            "}\n" +
+            "}";
+        var filePath = project.path + "/src/app/" + project.model + "/" + project.model + "Form/" + project.model + "Form.component.ts";
+        fs.writeFile(filePath, content, function (err) {
+            var success = err ? false : true;
+            return success;
+        });
+    },
+
+    generateContentTsNgMaterial: function (project) {
         var content =
             "import { Component, OnInit } from '@angular/core'; \n \n" +
             "@Component({\n" +
@@ -62,7 +106,6 @@ module.exports = {
                     '<input type="' + project.attrType[i] + '" class="form-control" id="formInput' + uc(project.attrName[i]) + '" name="' + project.attrName[i] + '">' +
                     '</div></div>';
             }
-
             if (project.attrType[i] == 'select') {
                 content = content + '<div class="col-md-6 col-12"><div class="form-group">' +
                     '<label for="formInput' + uc(project.attrName[i]) + '">' + uc(project.attrName[i]) + '</label>' +
@@ -77,6 +120,14 @@ module.exports = {
                     '<input class="form-check-input" type="checkbox" value="" id="formInput' + uc(project.attrName[i]) + '" name="' + project.attrName[i] + '">' +
                     '<label class="form-check-label" for="formInput' + uc(project.attrName[i]) + '">' + uc(project.attrName[i]) + '</label>' +
                     '</div></div></div>';
+            }
+            if (project.attrType[i] == 'textarea') {
+                content = content + '<div class="col-md-6 col-12"><div class="form-group">' +
+                    '<div class="form-group">' +
+                    '<label for="formInput' + uc(project.attrName[i]) + '">' + uc(project.attrName[i]) + ':</label>' +
+                    '<textarea class="form-control" rows="4" id="formInput' + uc(project.attrName[i]) + '"></textarea>' +
+                    '</div>' +
+                    '</div></div>';
             }
 
             if (linha % 2 != 0) {
@@ -131,6 +182,12 @@ module.exports = {
                     '</label>' +
                     '</div>';
             }
+            if (project.attrType[i] == 'textarea') {
+                content = content + '<div class="col m6 s12">' +
+                    '<textarea id="formInput' + uc(project.attrName[i]) + '" class="materialize-textarea"></textarea>' +
+                    '<label for="formInput' + uc(project.attrName[i]) + '">' + uc(project.attrName[i]) + '</label>' +
+                    '</div>';
+            }
             if (linha % 2 != 0) {
                 content = content + '</div>';
             }
@@ -170,6 +227,9 @@ module.exports = {
                     '</mat-select>';
             }
             if (project.attrType[i] == 'checkbox') {
+                content = content + '<mat-checkbox name="' + project.attrName[i] + '">' + uc(project.attrName[i]) + '</mat-checkbox>';
+            }
+            if (project.attrType[i] == 'textarea') {
                 content = content + '<mat-checkbox name="' + project.attrName[i] + '">' + uc(project.attrName[i]) + '</mat-checkbox>';
             }
         }
