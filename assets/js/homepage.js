@@ -97,3 +97,20 @@ var btnSubmit = new Vue({
         btntype : 'btn-primary'
     },
 });
+
+var projectModel = new Vue({
+    el: '#project-model',
+    methods: {
+        onInput : function() {
+            var model = this.$refs.model.value;
+            cardView.model = model;
+        }
+    }
+});
+
+var cardView = new Vue({
+    el: '#card-view',
+    data: {
+        model : ''
+    }
+});
