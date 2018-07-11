@@ -1,7 +1,7 @@
-<br>
+
 
 <%if (typeof feedback != 'undefined') { %>
-
+    <br><br><br>
     <%if (feedback.error == 0) { %>
         <div class="alert alert-success" role="alert">
             <%- feedback.msg %>
@@ -14,13 +14,17 @@
     <% } %>
 
 <% } %>
-
+<br><br><br>
 <h4>Configurações:</h4>
 <br>
 <form method="POST" action="/api/project/generate">
     <div class="form-group">
-        <label for="inputFramework">Framework:</label>
-        <input type="text" name="framework" class="form-control" id="inputFramework" value="Angular (CLI)" disabled>
+        <label for="selectFramework">Framework: <span style="color: red">*</span></label>
+        <select name="framework" class="form-control" id="selectFramework" ref="framework">
+            <option value="angular">Angular (2+)</option>
+            <option value="react">React</option>
+            <option value="vue">Vue</option>
+        </select>
     </div>
     <div class="form-group" id="project-path">
         <label for="inputProject">Caminho local do Projeto: <span style="color: red">*</span></label>
@@ -31,13 +35,18 @@
             {{ info }}
         </div>
     </div>
-    <div class="form-group">
-        <label for="selectToolkit">Toolkit Visual: <span style="color: red">*</span></label>
-        <select name="toolkit" class="form-control" id="selectToolkit">
-            <option value="bootstrap">Bootstrap</option>
-            <option value="materialize">Materialize-css</option>
-            <option value="ngmaterial">Angular Material</option>
-        </select>
+    <div id="toolkit-validation">
+        <div class="form-group">
+            <label for="selectToolkit">Toolkit Visual: <span style="color: red">*</span></label>
+            <select name="toolkit" class="form-control" @change="onChange" id="selectToolkit" ref="toolkit">
+                <option value="bootstrap">Bootstrap</option>
+                <option value="materialize">Materialize-css</option>
+                <option value="ngmaterial">Angular Material</option>
+            </select>
+        </div>    
+        <div class="alert alert-warning" v-if="toolkitwarning" role="alert">
+            {{ toolkitwarning }}
+        </div>
     </div>
     <div class="form-group">
         <label for="inputModel">Nome do Modelo: <span style="color: red">*</span></label>

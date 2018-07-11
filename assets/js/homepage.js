@@ -22,6 +22,24 @@ var pathValidation = new Vue({
     }
 });
 
+var toolkitValidation = new Vue({
+    el: '#toolkit-validation',
+    data: {
+        toolkitwarning  : ''
+    },
+    methods: {
+        onChange: function() {
+            const toolkit = this.$refs.toolkit.value;
+            if(toolkit == 'ngmaterial') {
+                this.toolkitwarning = 'ATENÇÃO! Os componentes MatFormFieldModule, MatInputModule, MatSelectModule, MatTableModule, MatCheckboxModule e MatButtonModule devem ser importados.';
+            }
+            else {
+                this.toolkitwarning = '';
+            }
+        }
+    }
+});
+
 var projectPath = new Vue({
     el: '#project-path',
     methods: {
