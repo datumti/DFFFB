@@ -83,7 +83,9 @@
                 </div>
             </div>
             <br>
-        </form>
+            <hr>
+            <button id="btn-submit" :disabled="isDisabled" type="submit" class="btn" v-bind:class="btntype">{{ submitText }}</button>
+        </form>        
     </div>
 
     <div class="col-md-5 col-sm-12">
@@ -119,6 +121,3 @@
     </div>
     
 </div>
-<br>
-<hr>
-<button id="btn-submit" :disabled="isDisabled" type="submit" class="btn" v-bind:class="btntype">{{ submitText }}</button>
